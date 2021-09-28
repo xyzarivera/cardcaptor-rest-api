@@ -42,11 +42,17 @@
 
 ## Mimicking ORM sprint
 
-- copied `index.ts` and `app.ts`
+- create express app instance
+    - copied `index.ts` and `app.ts` from previous sprint
     - removed unwanted imports to make it work
     - no default `GET` method yet, but it connects
-
 <img src="./img/2.png" alt="Initial Express App" width="75%"/>
+
+- connect to psql using `typeorm`
+    - installed `typeorm`, `type-seeding`, `pg`, `dotenv`, `ts-node`
+    - copied `scripts/testConnection`, `database.ts`, `ormconfig`
+    - created `.env` for psql environment variables
+
 
 ### Resources
 
