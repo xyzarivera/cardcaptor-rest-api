@@ -1,0 +1,22 @@
+{
+  "name": "cardcaptor-rest-api",
+  "version": "1.0.0",
+  "description": "A REST API server capturing the magical cards used in the manga/anime series, Cardcaptor Sakura.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyzarivera/cardcaptor-rest-api.git"
+  },
+  "author": "Xyza Rivera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xyzarivera/cardcaptor-rest-api/issues"
+  },
+  "homepage": "https://github.com/xyzarivera/cardcaptor-rest-api#readme",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
