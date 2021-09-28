@@ -2,7 +2,7 @@
   "name": "cardcaptor-rest-api",
   "version": "1.0.0",
   "description": "A REST API server capturing the magical cards used in the manga/anime series, Cardcaptor Sakura.",
-  "main": "src/index.ts",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
