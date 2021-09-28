@@ -24,10 +24,14 @@ A REST API server capturing the magical cards used in the manga/anime series, Ca
 - Create a frontend
 - Deploy!
 
-## ☀️ Features
+## ☀️ Features◊
 
 Work in Progress
 
 ## 📖 API Documentation
 
 Work in Progress
+
+### Resources
+
+- [How to Build A REST API with ExpressJS and TypeScript](https://medium.com/swlh/build-a-rest-api-with-express-js-and-typescript-dc2c8da89c52)
