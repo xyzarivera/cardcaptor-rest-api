@@ -1,5 +1,11 @@
 # Personal Notes!
 
+## Things to do
+
+- [x] Set up TypeScript Express Server
+- [ ] Set up API functionalities
+- [ ] Set up ORM (typeORM) and connect database
+
 ## How I Started my Project
 
 - created a github repository, cloned it to local
@@ -33,6 +39,14 @@
     ```
 
 <img src="./img/1.png" alt="Initial Express App" width="75%"/>
+
+## Mimicking ORM sprint
+
+- copied `index.ts` and `app.ts`
+    - removed unwanted imports to make it work
+    - no default `GET` method yet, but it connects
+
+<img src="./img/2.png" alt="Initial Express App" width="75%"/>
 
 ### Resources
 
