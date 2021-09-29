@@ -2,10 +2,10 @@ import express, { Application } from "express";
 import { Middleware, ErrorHandlingMiddleware } from "./middleware/types";
 import BaseController from "./services/common/controller";
 import bodyParser from "body-parser";
-// import loggerMiddleware from "./middleware/logger";
-// import AuthController from "./services/auth/controller";
+import loggerMiddleware from "./middleware/logger";
+import errorHandler from "./middleware/errorHandler";
+import HomeController from "./services/home/controller";
 // import UserController from "./services/users/controller";
-// import errorHandler from "./middleware/errorHandler";
 // import AuthManager from "./services/auth/manager";
 // import AccountController from "./services/accounts/controller";
 // import TransactionController from "./services/transactions/controller";
@@ -87,6 +87,7 @@ class App {
       port: 5000,
       services: [
         /* Where we register our services */
+        new HomeController
         // new AuthController(appSecret),
         // new UserController(),
         // new AccountController(),
@@ -100,11 +101,11 @@ class App {
         express.urlencoded({ extended: true }),
 
         /* Log incoming requests */
-        // loggerMiddleware,
+        loggerMiddleware,
       ],
       errorHandlers: [
         /* Handle errors */
-        // errorHandler,
+        errorHandler,
       ],
       //   AuthManagerClass: AuthManager,
     });
