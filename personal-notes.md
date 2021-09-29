@@ -53,7 +53,11 @@
     - copied `scripts/testConnection`, `database.ts`, `ormconfig`
     - created `.env` for psql environment variables
 
-
+- creating `Home` service
+    - create `index.ts` that exports the controller and manager
+    - create `controller.ts` that handles the REST API endpoints
+    - create `manager.ts` that handles the data or other functions
+- repeat for creating other serices
 ### Resources
 
 - [How to Build A REST API with ExpressJS and TypeScript](https://medium.com/swlh/build-a-rest-api-with-express-js-and-typescript-dc2c8da89c52)
