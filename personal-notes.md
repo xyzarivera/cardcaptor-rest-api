@@ -58,6 +58,23 @@
     - create `controller.ts` that handles the REST API endpoints
     - create `manager.ts` that handles the data or other functions
 - repeat for creating other serices
+
+## Seeding Data
+
+- create an Entity
+- copy npm scripts for orm
+    ```
+    "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
+    "makeMigrations": "npm run orm -- migration:generate -n",
+    "migrate": "npm run orm -- migration:run",
+    "rollback": "npm run orm -- migration:revert",
+    "seeder": "ts-node -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js",
+    "seed": "npm run seeder -- --configName src/ormconfig.ts seed"
+    ```
+- prepare seeds
+- do migrations with `npm run makeMigration <migrationFileName>` and `npm run migrate`
+- seed using `npm run seed`
+
 ### Resources
 
 - [How to Build A REST API with ExpressJS and TypeScript](https://medium.com/swlh/build-a-rest-api-with-express-js-and-typescript-dc2c8da89c52)
