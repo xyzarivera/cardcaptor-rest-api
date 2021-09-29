@@ -1,22 +1,15 @@
 import express, { Application } from "express";
 import { Middleware, ErrorHandlingMiddleware } from "./middleware/types";
 import BaseController from "./services/common/controller";
-import bodyParser from "body-parser";
 import loggerMiddleware from "./middleware/logger";
 import errorHandler from "./middleware/errorHandler";
 import HomeController from "./services/home/controller";
-// import UserController from "./services/users/controller";
-// import AuthManager from "./services/auth/manager";
-// import AccountController from "./services/accounts/controller";
-// import TransactionController from "./services/transactions/controller";
 
 interface AppConfig {
-  //   appSecret: string;
   services: BaseController[];
   port?: number;
   middleware?: Middleware[];
   errorHandlers?: ErrorHandlingMiddleware[];
-  //   AuthManagerClass: { new (appSecret: string): any };
 }
 
 class App {
@@ -31,12 +24,8 @@ class App {
   protected postStartHook: () => void;
 
   constructor({ port, middleware, services, errorHandlers }: AppConfig) {
-    // constructor({ appSecret, port, AuthManagerClass, middleware, services, errorHandlers }: AppConfig) {
-    // this.appSecret = appSecret;
 
     this.app = express();
-    // this.app.set("APP_SECRET", this.appSecret);
-    // this.app.set("authManager", new AuthManagerClass(this.appSecret));
 
     this.port = port || App.DEFAULT_PORT;
     console.log(`port is ${port}`);
@@ -88,15 +77,8 @@ class App {
       services: [
         /* Where we register our services */
         new HomeController
-        // new AuthController(appSecret),
-        // new UserController(),
-        // new AccountController(),
-        // new TransactionController(),
       ],
       middleware: [
-        /* Body Parser, see: https://stackoverflow.com/questions/38306569/what-does-body-parser-do-with-express */
-        // bodyParser.json(),
-        // bodyParser.urlencoded({ extended: true }),
         express.json(),
         express.urlencoded({ extended: true }),
 
@@ -107,7 +89,6 @@ class App {
         /* Handle errors */
         errorHandler,
       ],
-      //   AuthManagerClass: AuthManager,
     });
   }
 }
