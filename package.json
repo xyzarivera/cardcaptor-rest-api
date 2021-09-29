@@ -7,7 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --inspect -r ts-node/register -r dotenv/config src/index.ts",
     "start": "ts-node -r dotenv/config dist/index.js",
-    "testConnection": "ts-node -r dotenv/config src/scripts/testConnection.ts"
+    "testConnection": "ts-node -r dotenv/config src/scripts/testConnection.ts",
+    "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
+    "makeMigrations": "npm run orm -- migration:generate -n",
+    "migrate": "npm run orm -- migration:run",
+    "rollback": "npm run orm -- migration:revert",
+    "seeder": "ts-node -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js",
+    "seed": "npm run seeder -- --configName src/ormconfig.ts seed"
   },
   "repository": {
     "type": "git",
