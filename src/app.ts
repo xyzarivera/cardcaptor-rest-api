@@ -4,6 +4,7 @@ import BaseController from "./services/common/controller";
 import loggerMiddleware from "./middleware/logger";
 import errorHandler from "./middleware/errorHandler";
 import HomeController from "./services/home/controller";
+import CardController from "./services/cards/controller";
 
 interface AppConfig {
   services: BaseController[];
@@ -76,7 +77,8 @@ class App {
       port: 5000,
       services: [
         /* Where we register our services */
-        new HomeController
+        new HomeController,
+        new CardController
       ],
       middleware: [
         express.json(),
