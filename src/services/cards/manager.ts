@@ -1,6 +1,7 @@
 import { getRepository, Repository, DeleteResult } from "typeorm";
 import SakuraCard from "../../entities/SakuraCardModel";
 import { IManager } from "../common/manager";
+import _ from "lodash";
 
 class CardManager implements IManager {
   protected SakuraCardRepository: Repository<SakuraCard>;
@@ -10,56 +11,73 @@ class CardManager implements IManager {
   }
 
   /**
-   * Get SakuraCard by primary key
-   *
-   * FIXME
+   * Replaces hypens to string and capitalizes first letter of each word
+   * @param input - string to sanitize
+   * @returns - sanitized string
    */
-  public async getSakuraCard(IdOrName: string): Promise<SakuraCard> {
-    const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: IdOrName });
-    return SakuraCardData;
-    // return Promise.resolve(new SakuraCard()); -- tells that we should return a resolved Promise with SakuraCard pro
+  private sanitize = (input: string): string => {
+    return _.startCase(_.toLower(_.replace(input, new RegExp("-", "g"), " ")));
+  };
+
+  /**
+   *
+   * @returns Array of All Sakura Card objects
+   */
+  public async getAllSakuraCards(): Promise<SakuraCard[]> {
+    const SakuraCardsData = await this.SakuraCardRepository.query("SELECT * FROM sakura_cards");
+    console.log(SakuraCardsData);
+    return SakuraCardsData;
   }
 
-//   /**
-//    * Create a new SakuraCard
-//    */
-//   public async createSakuraCard(SakuraCardDetails: Partial<SakuraCardInput>): Promise<SakuraCard> {
-//     // 1. Hash password
-//     const saltRound = 10;
-//     const passwordHash = await bcrypt.hash(SakuraCardDetails.password, saltRound);
+  /**
+   *
+   * @param cardName - Sakura Card unique identifier
+   * @returns - Sakura Card object
+   */
+  public async getSakuraCard(cardName: string): Promise<SakuraCard> {
+      const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
+      return SakuraCardData;
+  }
 
-//     // 2. Create SakuraCard
-//     const newSakuraCard = new SakuraCard();
-//     newSakuraCard.SakuraCardname = SakuraCardDetails.SakuraCardname;
-//     newSakuraCard.passwordHash = passwordHash;
+  /**
+   * 
+   * @param sakuraCardInput 
+   * @returns Sakura Card object
+   */
+    public async createSakuraCard(sakuraCardInput: Partial<SakuraCard>): Promise<SakuraCard> {
+      const newSakuraCard = new SakuraCard();
+      newSakuraCard.cardName = sakuraCardInput.cardName;
+      newSakuraCard.isMainCard = sakuraCardInput.isMainCard;
+      newSakuraCard.attribute = sakuraCardInput.attribute;
+      newSakuraCard.sign = sakuraCardInput.sign;
+      newSakuraCard.magicType = sakuraCardInput.magicType;
 
-//     return this.SakuraCardRepository.save(newSakuraCard);
-//   }
+      return this.SakuraCardRepository.save(newSakuraCard);
+    }
 
-//   /**
-//    * Update SakuraCard details
-//    *
-//    */
-//   public async updateSakuraCard(SakuraCardId: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
-//     // console.log("UPDATES", updates);
-//     const updateData = await this.SakuraCardRepository.update(SakuraCardId, updates);
-//     // console.log("updateData", updateData);
-//     const updatedSakuraCard = await this.SakuraCardRepository.findOne(SakuraCardId);
-//     // console.log("updatedSakuraCard", updatedSakuraCard);
-//     return updatedSakuraCard;
-//     // return Promise.resolve(new SakuraCard());
-//   }
+    /**
+     * 
+     * @param cardName 
+     * @param updates 
+     * @returns 
+     */
+    public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
+      const updateSakuraCard = await this.SakuraCardRepository.update({cardName: this.sanitize(cardName)}, updates);
+      // console.log("updateSakuraCard", updateSakuraCard);
+      const updatedSakuraCard = await this.SakuraCardRepository.findOne({cardName: this.sanitize(cardName)});
+      // console.log("updatedSakuraCard", updatedSakuraCard);
+      return updatedSakuraCard;
+    }
 
-//   /**
-//    * Delete SakuraCard
-//    *
-//    */
-//   public async removeSakuraCard(SakuraCardId: string): Promise<DeleteResult | void> {
-//     const deleteData = await this.SakuraCardRepository.delete(SakuraCardId);
-//     // console.log("deleteData", deleteData);
-//     return Promise.resolve();
-//   }
-
+    /**
+     * Delete SakuraCard
+     *
+     */
+    public async removeSakuraCard(cardName: string): Promise<DeleteResult | void> {
+      const deleteData = await this.SakuraCardRepository.delete({cardName: this.sanitize(cardName)});
+      // console.log("deleteData", deleteData);
+      return Promise.resolve();
+    }
 }
 
 export default CardManager;

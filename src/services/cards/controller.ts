@@ -21,21 +21,40 @@ class CardController extends BaseController {
   protected createRouter(): Router {
     const router = Router();
 
-    router.get("/:IdOrName", this.get);
-    // router.post("/", this.post);
-    // router.patch("/:userId", this.patch);
-    // router.delete("/:userId", this.delete);
+    router.get("/", this.getAll);
+    router.get("/:cardName", this.getCard);
+    router.post("/", this.post);
+    router.patch("/:cardName", this.patch);
+    router.delete("/:cardName", this.delete);
 
     return router;
   }
 
   /**
-   * HTTP GET request handler
+   * HTTP GET request handler for getting all cards
    */
-  protected get = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   protected getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { IdOrName } = req.params;
-      const card = await this.manager.getSakuraCard(IdOrName);
+      const cards = await this.manager.getAllSakuraCards();
+      if (!cards) {
+        res.status(404).send({ error: "Sakura Cards not found" });
+        return;
+      }
+
+      res.json(cards);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * HTTP GET request handler for getting a specific card
+   */
+  protected getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { cardName } = req.params;
+
+      const card = await this.manager.getSakuraCard(cardName);
       if (!card) {
         res.status(404).send({ error: "Sakura Card not found" });
         return;
@@ -43,55 +62,52 @@ class CardController extends BaseController {
 
       res.json(_.pick(card, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
     } catch (err) {
-      // Delegate error handling to Express
-      // with our custom error handler in
-      // `src/middleware/errorHandler.ts`
       next(err);
     }
   };
 
-//   /**
-//    * HTTP POST request handler
-//    */
-//   protected post = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     try {
-//       const userDetails = req.body;
-//       const user = await this.manager.createSakuraCard(userDetails);
+  /**
+   * HTTP POST request handler
+   */
+  protected post = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const sakuraCardInput = req.body;
+      const sakuraCard = await this.manager.createSakuraCard(sakuraCardInput);
 
-//       res.status(201).json(_.pick(user, ["id", "username", "displayName"]));
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+      res.status(201).json(_.pick(sakuraCard, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
+    } catch (err) {
+      next(err);
+    }
+  };
 
-//   /**
-//    * HTTP PATCH request handler
-//    */
-//   protected patch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     try {
-//       const { userId } = req.params;
-//       const newUserDetails = req.body;
-//       const updatedUser = await this.manager.updateSakuraCard(userId, newUserDetails);
+  /**
+   * HTTP PATCH request handler
+   */
+  protected patch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { cardName } = req.params;
+      const cardDetails = req.body;
+      const updatedSakuraCard = await this.manager.updateSakuraCard(cardName, cardDetails);
 
-//       res.json(_.pick(updatedUser, ["id", "username", "displayName"]));
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+      res.json(_.pick(updatedSakuraCard, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
+    } catch (err) {
+      next(err);
+    }
+  };
 
-//   /**
-//    * HTTP DELETE request handler
-//    */
-//   protected delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     const { userId } = req.params;
+  /**
+   * HTTP DELETE request handler
+   */
+  protected delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { cardName } = req.params;
 
-//     try {
-//       await this.manager.removeSakuraCard(userId);
-//       res.status(200).end();
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+    try {
+      await this.manager.removeSakuraCard(cardName);
+      res.status(200).end();
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 export default CardController;

@@ -75,6 +75,22 @@
 - do migrations with `npm run makeMigration <migrationFileName>` and `npm run migrate`
 - seed using `npm run seed`
 
+## Sanitizing RESTful Endpoints
+
+I'm trying to make my endpoints RESTful
+- no spaces, use hyphens
+- no uppercase letters 
+
+However, whenever I query my data directly using the parameters, my source has spaces and uppercase letters. By default, the browser accepts spaces and my manager function matches uppercase letters (ie. `http://localhost:5000/cards/The Windy`). This does not follow the RESTful endpoint guide, tho it works!
+
+I created a short function that would accept my RESTful endpoint. It changes hyphens to spaces and first letters of a work to uppercase. I'm not sure how many enpoints would use this, but I'd like to note it here. Almost got stuck thinking if I should create a Middleware already, but it's overengineering for now!
+```
+import _ from 'lodash';
+private sanitize = (input:string) : string => {
+    return _.startCase(_.toLower(_.replace(input,new RegExp("-","g")," ")));
+}
+```
+
 ### Resources
 
 - [How to Build A REST API with ExpressJS and TypeScript](https://medium.com/swlh/build-a-rest-api-with-express-js-and-typescript-dc2c8da89c52)
