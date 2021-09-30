@@ -31,11 +31,11 @@ class CardManager implements IManager {
 
   /**
    *
-   * @param IdOrName - Sakura Card unique identifier
+   * @param cardName - Sakura Card unique identifier
    * @returns - Sakura Card object
    */
-  public async getSakuraCard(IdOrName: string): Promise<SakuraCard> {
-      const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(IdOrName) });
+  public async getSakuraCard(cardName: string): Promise<SakuraCard> {
+      const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
       return SakuraCardData;
   }
 
@@ -57,14 +57,14 @@ class CardManager implements IManager {
 
     /**
      * 
-     * @param sakuraCardName 
+     * @param cardName 
      * @param updates 
      * @returns 
      */
-    public async updateSakuraCard(sakuraCardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
-      const updateSakuraCard = await this.SakuraCardRepository.update(sakuraCardName, updates);
+    public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
+      const updateSakuraCard = await this.SakuraCardRepository.update(cardName, updates);
       // console.log("updateSakuraCard", updateSakuraCard);
-      const updatedSakuraCard = await this.SakuraCardRepository.findOne(sakuraCardName);
+      const updatedSakuraCard = await this.SakuraCardRepository.findOne(cardName);
       // console.log("updatedSakuraCard", updatedSakuraCard);
       return updatedSakuraCard;
     }
@@ -73,8 +73,8 @@ class CardManager implements IManager {
      * Delete SakuraCard
      *
      */
-    public async removeSakuraCard(sakuraCardName: string): Promise<DeleteResult | void> {
-      const deleteData = await this.SakuraCardRepository.delete(sakuraCardName);
+    public async removeSakuraCard(cardName: string): Promise<DeleteResult | void> {
+      const deleteData = await this.SakuraCardRepository.delete(cardName);
       // console.log("deleteData", deleteData);
       return Promise.resolve();
     }

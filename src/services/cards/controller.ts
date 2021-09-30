@@ -22,10 +22,10 @@ class CardController extends BaseController {
     const router = Router();
 
     router.get("/", this.getAll);
-    router.get("/:IdOrName", this.getCard);
+    router.get("/:cardName", this.getCard);
     router.post("/", this.post);
-    // router.patch("/:userId", this.patch);
-    // router.delete("/:userId", this.delete);
+    router.patch("/:cardName", this.patch);
+    router.delete("/:cardName", this.delete);
 
     return router;
   }
@@ -52,9 +52,9 @@ class CardController extends BaseController {
    */
   protected getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { IdOrName } = req.params;
+      const { cardName } = req.params;
 
-      const card = await this.manager.getSakuraCard(IdOrName);
+      const card = await this.manager.getSakuraCard(cardName);
       if (!card) {
         res.status(404).send({ error: "Sakura Card not found" });
         return;
