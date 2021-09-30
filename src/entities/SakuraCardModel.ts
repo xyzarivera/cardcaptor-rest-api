@@ -26,13 +26,13 @@ class SakuraCard {
   @Column()
   public magicType: string;
 
-  @Column()
+  @Column({ nullable: true })
   public captureOrderAnime: number;
 
   @Column({ nullable: true })
   public captureOrderManga: number;
 
-  @Column()
+  @Column({ nullable: true })
   public transformOrderAnime: number;
 
   @Column({ nullable: true })
