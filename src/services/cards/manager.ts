@@ -10,9 +10,17 @@ class CardManager implements IManager {
   }
 
   /**
-   * Get SakuraCard by primary key
-   *
-   * FIXME
+   * Get all SakuraCards
+   */
+   public async getAllSakuraCards(): Promise<SakuraCard[]> {
+    const SakuraCardData = await this.SakuraCardRepository.query("SELECT * FROM sakura_cards");
+    console.log(SakuraCardData);
+    return SakuraCardData;
+    // return Promise.resolve(new SakuraCard()); -- tells that we should return a resolved Promise with SakuraCard pro
+  }
+
+  /**
+   * Get a SakuraCard by primary key
    */
   public async getSakuraCard(IdOrName: string): Promise<SakuraCard> {
     const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: IdOrName });

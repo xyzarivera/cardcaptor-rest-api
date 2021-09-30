@@ -21,7 +21,8 @@ class CardController extends BaseController {
   protected createRouter(): Router {
     const router = Router();
 
-    router.get("/:IdOrName", this.get);
+    router.get("/", this.getAll);
+    router.get("/:IdOrName", this.getCard);
     // router.post("/", this.post);
     // router.patch("/:userId", this.patch);
     // router.delete("/:userId", this.delete);
@@ -36,7 +37,24 @@ class CardController extends BaseController {
   /**
    * HTTP GET request handler
    */
-  protected get = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+   protected getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const cards = await this.manager.getAllSakuraCards();
+      if (!cards) {
+        res.status(404).send({ error: "Sakura Cards not found" });
+        return;
+      }
+
+      res.json(cards);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * HTTP GET request handler
+   */
+  protected getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { IdOrName } = req.params;
       const cleanedIdOrName = this.sanitize(IdOrName);
