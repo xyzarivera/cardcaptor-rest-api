@@ -29,13 +29,19 @@ class CardController extends BaseController {
     return router;
   }
 
+  private sanitize = (input:string) : string => {
+    return _.startCase(_.toLower(_.replace(input,new RegExp("-","g")," ")));
+  }
+
   /**
    * HTTP GET request handler
    */
   protected get = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { IdOrName } = req.params;
-      const card = await this.manager.getSakuraCard(IdOrName);
+      const cleanedIdOrName = this.sanitize(IdOrName);
+
+      const card = await this.manager.getSakuraCard(cleanedIdOrName);
       if (!card) {
         res.status(404).send({ error: "Sakura Card not found" });
         return;
@@ -43,9 +49,6 @@ class CardController extends BaseController {
 
       res.json(_.pick(card, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
     } catch (err) {
-      // Delegate error handling to Express
-      // with our custom error handler in
-      // `src/middleware/errorHandler.ts`
       next(err);
     }
   };
