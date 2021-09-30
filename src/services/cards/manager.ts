@@ -56,29 +56,29 @@ class CardManager implements IManager {
       return this.SakuraCardRepository.save(newSakuraCard);
     }
 
-  //   /**
-  //    * Update SakuraCard details
-  //    *
-  //    */
-  //   public async updateSakuraCard(SakuraCardId: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
-  //     // console.log("UPDATES", updates);
-  //     const updateData = await this.SakuraCardRepository.update(SakuraCardId, updates);
-  //     // console.log("updateData", updateData);
-  //     const updatedSakuraCard = await this.SakuraCardRepository.findOne(SakuraCardId);
-  //     // console.log("updatedSakuraCard", updatedSakuraCard);
-  //     return updatedSakuraCard;
-  //     // return Promise.resolve(new SakuraCard());
-  //   }
+    /**
+     * 
+     * @param sakuraCardName 
+     * @param updates 
+     * @returns 
+     */
+    public async updateSakuraCard(sakuraCardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
+      const updateSakuraCard = await this.SakuraCardRepository.update(sakuraCardName, updates);
+      // console.log("updateSakuraCard", updateSakuraCard);
+      const updatedSakuraCard = await this.SakuraCardRepository.findOne(sakuraCardName);
+      // console.log("updatedSakuraCard", updatedSakuraCard);
+      return updatedSakuraCard;
+    }
 
-  //   /**
-  //    * Delete SakuraCard
-  //    *
-  //    */
-  //   public async removeSakuraCard(SakuraCardId: string): Promise<DeleteResult | void> {
-  //     const deleteData = await this.SakuraCardRepository.delete(SakuraCardId);
-  //     // console.log("deleteData", deleteData);
-  //     return Promise.resolve();
-  //   }
+    /**
+     * Delete SakuraCard
+     *
+     */
+    public async removeSakuraCard(sakuraCardName: string): Promise<DeleteResult | void> {
+      const deleteData = await this.SakuraCardRepository.delete(sakuraCardName);
+      // console.log("deleteData", deleteData);
+      return Promise.resolve();
+    }
 }
 
 export default CardManager;

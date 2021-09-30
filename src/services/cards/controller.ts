@@ -80,34 +80,34 @@ class CardController extends BaseController {
     }
   };
 
-//   /**
-//    * HTTP PATCH request handler
-//    */
-//   protected patch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     try {
-//       const { userId } = req.params;
-//       const newUserDetails = req.body;
-//       const updatedUser = await this.manager.updateSakuraCard(userId, newUserDetails);
+  /**
+   * HTTP PATCH request handler
+   */
+  protected patch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { cardName } = req.params;
+      const cardDetails = req.body;
+      const updatedSakuraCard = await this.manager.updateSakuraCard(cardName, cardDetails);
 
-//       res.json(_.pick(updatedUser, ["id", "username", "displayName"]));
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+      res.json(_.pick(updatedSakuraCard, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
+    } catch (err) {
+      next(err);
+    }
+  };
 
-//   /**
-//    * HTTP DELETE request handler
-//    */
-//   protected delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     const { userId } = req.params;
+  /**
+   * HTTP DELETE request handler
+   */
+  protected delete = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { cardName } = req.params;
 
-//     try {
-//       await this.manager.removeSakuraCard(userId);
-//       res.status(200).end();
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+    try {
+      await this.manager.removeSakuraCard(cardName);
+      res.status(200).end();
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 export default CardController;
