@@ -1,6 +1,7 @@
 import { getRepository, Repository, DeleteResult } from "typeorm";
 import SakuraCard from "../../entities/SakuraCardModel";
 import { IManager } from "../common/manager";
+import _ from "lodash";
 
 class CardManager implements IManager {
   protected SakuraCardRepository: Repository<SakuraCard>;
@@ -9,23 +10,33 @@ class CardManager implements IManager {
     this.SakuraCardRepository = getRepository(SakuraCard);
   }
 
+    /**
+   * Replaces hypens to string and capitalizes first letter of each word
+   * @param input - string to sanitize
+   * @returns - sanitized string
+   */
+     private sanitize = (input:string) : string => {
+      return _.startCase(_.toLower(_.replace(input,new RegExp("-","g")," ")));
+    }
+
   /**
-   * Get all SakuraCards
+   * 
+   * @returns Array of All Sakura Card objects
    */
    public async getAllSakuraCards(): Promise<SakuraCard[]> {
-    const SakuraCardData = await this.SakuraCardRepository.query("SELECT * FROM sakura_cards");
-    console.log(SakuraCardData);
-    return SakuraCardData;
-    // return Promise.resolve(new SakuraCard()); -- tells that we should return a resolved Promise with SakuraCard pro
+    const SakuraCardsData = await this.SakuraCardRepository.query("SELECT * FROM sakura_cards");
+    console.log(SakuraCardsData);
+    return SakuraCardsData;
   }
 
   /**
-   * Get a SakuraCard by primary key
+   * 
+   * @param IdOrName - Sakura Card unique identifier
+   * @returns - Sakura Card object
    */
   public async getSakuraCard(IdOrName: string): Promise<SakuraCard> {
-    const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: IdOrName });
+    const SakuraCardData = await this.SakuraCardRepository.findOne({ id: IdOrName });
     return SakuraCardData;
-    // return Promise.resolve(new SakuraCard()); -- tells that we should return a resolved Promise with SakuraCard pro
   }
 
 //   /**

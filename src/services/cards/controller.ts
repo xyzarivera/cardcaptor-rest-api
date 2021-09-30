@@ -31,15 +31,6 @@ class CardController extends BaseController {
   }
 
   /**
-   * Replaces hypens to string and capitalizes first letter of each word
-   * @param input - string to sanitize
-   * @returns - sanitized string
-   */
-  private sanitize = (input:string) : string => {
-    return _.startCase(_.toLower(_.replace(input,new RegExp("-","g")," ")));
-  }
-
-  /**
    * HTTP GET request handler for getting all cards
    */
    protected getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -62,9 +53,8 @@ class CardController extends BaseController {
   protected getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { IdOrName } = req.params;
-      const cleanedIdOrName = this.sanitize(IdOrName);
 
-      const card = await this.manager.getSakuraCard(cleanedIdOrName);
+      const card = await this.manager.getSakuraCard(IdOrName);
       if (!card) {
         res.status(404).send({ error: "Sakura Card not found" });
         return;
