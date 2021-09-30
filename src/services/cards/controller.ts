@@ -23,7 +23,7 @@ class CardController extends BaseController {
 
     router.get("/", this.getAll);
     router.get("/:IdOrName", this.getCard);
-    // router.post("/", this.post);
+    router.post("/", this.post);
     // router.patch("/:userId", this.patch);
     // router.delete("/:userId", this.delete);
 
@@ -66,19 +66,19 @@ class CardController extends BaseController {
     }
   };
 
-//   /**
-//    * HTTP POST request handler
-//    */
-//   protected post = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//     try {
-//       const userDetails = req.body;
-//       const user = await this.manager.createSakuraCard(userDetails);
+  /**
+   * HTTP POST request handler
+   */
+  protected post = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const sakuraCardInput = req.body;
+      const sakuraCard = await this.manager.createSakuraCard(sakuraCardInput);
 
-//       res.status(201).json(_.pick(user, ["id", "username", "displayName"]));
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+      res.status(201).json(_.pick(sakuraCard, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
+    } catch (err) {
+      next(err);
+    }
+  };
 
 //   /**
 //    * HTTP PATCH request handler
