@@ -35,8 +35,7 @@ class CardManager implements IManager {
    * @returns - Sakura Card object
    */
   public async getSakuraCard(IdOrName: string): Promise<SakuraCard> {
-    console.log(typeof IdOrName);
-      const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: IdOrName });
+      const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(IdOrName) });
       return SakuraCardData;
   }
 
