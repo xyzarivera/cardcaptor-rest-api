@@ -62,9 +62,9 @@ class CardManager implements IManager {
      * @returns 
      */
     public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
-      const updateSakuraCard = await this.SakuraCardRepository.update(cardName, updates);
+      const updateSakuraCard = await this.SakuraCardRepository.update({cardName: this.sanitize(cardName)}, updates);
       // console.log("updateSakuraCard", updateSakuraCard);
-      const updatedSakuraCard = await this.SakuraCardRepository.findOne(cardName);
+      const updatedSakuraCard = await this.SakuraCardRepository.findOne({cardName: this.sanitize(cardName)});
       // console.log("updatedSakuraCard", updatedSakuraCard);
       return updatedSakuraCard;
     }
@@ -74,7 +74,7 @@ class CardManager implements IManager {
      *
      */
     public async removeSakuraCard(cardName: string): Promise<DeleteResult | void> {
-      const deleteData = await this.SakuraCardRepository.delete(cardName);
+      const deleteData = await this.SakuraCardRepository.delete({cardName: this.sanitize(cardName)});
       // console.log("deleteData", deleteData);
       return Promise.resolve();
     }
