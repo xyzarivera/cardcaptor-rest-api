@@ -24,7 +24,7 @@ A REST API server capturing the magical cards used in the manga/anime series, Ca
 - Create a frontend
 - Deploy!
 
-## ☀️ Features
+## ☀️ Features◊
 
 Work in Progress
 
