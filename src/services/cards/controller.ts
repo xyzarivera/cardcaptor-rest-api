@@ -30,12 +30,17 @@ class CardController extends BaseController {
     return router;
   }
 
+  /**
+   * Replaces hypens to string and capitalizes first letter of each word
+   * @param input - string to sanitize
+   * @returns - sanitized string
+   */
   private sanitize = (input:string) : string => {
     return _.startCase(_.toLower(_.replace(input,new RegExp("-","g")," ")));
   }
 
   /**
-   * HTTP GET request handler
+   * HTTP GET request handler for getting all cards
    */
    protected getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -52,7 +57,7 @@ class CardController extends BaseController {
   };
 
   /**
-   * HTTP GET request handler
+   * HTTP GET request handler for getting a specific card
    */
   protected getCard = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
