@@ -10,7 +10,7 @@ class HomeManager implements IManager {
    * Return a greeting as a test
    */
   public async getGreeting(): Promise<string> {
-    return "hello my friend";
+    return "Welcome to Cardcaptor Xyza's API! ";
   }
 }
 

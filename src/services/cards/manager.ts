@@ -35,49 +35,48 @@ class CardManager implements IManager {
    * @returns - Sakura Card object
    */
   public async getSakuraCard(cardName: string): Promise<SakuraCard> {
-      const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
-      return SakuraCardData;
+    const SakuraCardData = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
+    return SakuraCardData;
   }
 
   /**
-   * 
-   * @param sakuraCardInput 
+   *
+   * @param sakuraCardInput
    * @returns Sakura Card object
    */
-    public async createSakuraCard(sakuraCardInput: Partial<SakuraCard>): Promise<SakuraCard> {
-      const newSakuraCard = new SakuraCard();
-      newSakuraCard.cardName = sakuraCardInput.cardName;
-      newSakuraCard.isMainCard = sakuraCardInput.isMainCard;
-      newSakuraCard.attribute = sakuraCardInput.attribute;
-      newSakuraCard.sign = sakuraCardInput.sign;
-      newSakuraCard.magicType = sakuraCardInput.magicType;
+  public async createSakuraCard(sakuraCardInput: Partial<SakuraCard>): Promise<SakuraCard> {
+    const newSakuraCard = new SakuraCard();
+    newSakuraCard.cardName = sakuraCardInput.cardName;
+    newSakuraCard.isMainCard = sakuraCardInput.isMainCard;
+    newSakuraCard.attribute = sakuraCardInput.attribute;
+    newSakuraCard.sign = sakuraCardInput.sign;
+    newSakuraCard.magicType = sakuraCardInput.magicType;
 
-      return this.SakuraCardRepository.save(newSakuraCard);
-    }
+    return this.SakuraCardRepository.save(newSakuraCard);
+  }
 
-    /**
-     * 
-     * @param cardName 
-     * @param updates 
-     * @returns 
-     */
-    public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
-      const updateSakuraCard = await this.SakuraCardRepository.update({cardName: this.sanitize(cardName)}, updates);
-      // console.log("updateSakuraCard", updateSakuraCard);
-      const updatedSakuraCard = await this.SakuraCardRepository.findOne({cardName: this.sanitize(cardName)});
-      // console.log("updatedSakuraCard", updatedSakuraCard);
-      return updatedSakuraCard;
-    }
+  /**
+   *
+   * @param cardName
+   * @param updates
+   * @returns
+   */
+  public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
+    const updateSakuraCard = await this.SakuraCardRepository.update({ cardName: this.sanitize(cardName) }, updates);
+    // console.log("updateSakuraCard", updateSakuraCard);
+    const updatedSakuraCard = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
+    // console.log("updatedSakuraCard", updatedSakuraCard);
+    return updatedSakuraCard;
+  }
 
-    /**
-     * Delete SakuraCard
-     *
-     */
-    public async removeSakuraCard(cardName: string): Promise<DeleteResult | void> {
-      const deleteData = await this.SakuraCardRepository.delete({cardName: this.sanitize(cardName)});
-      // console.log("deleteData", deleteData);
-      return Promise.resolve();
-    }
+  /**
+   * Delete SakuraCard
+   *
+   */
+  public async removeSakuraCard(cardName: string): Promise<DeleteResult | void> {
+    const deleteData = await this.SakuraCardRepository.delete({ cardName: this.sanitize(cardName) });
+    return Promise.resolve();
+  }
 }
 
 export default CardManager;
