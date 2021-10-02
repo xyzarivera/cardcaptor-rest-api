@@ -77,7 +77,7 @@ returns: `SakuraCard[]`
 parameters: 
 cardName: `string`, required
 
-returns: `SakuraCard`
+returns: `Partial<SakuraCard>`
 
 #### **POST** `/cards/{cardName}`
 
@@ -94,20 +94,25 @@ request body: `Partial<SakuraCard>`, required
 }
 ```
 
-returns: `SakuraCard`
+returns: `Partial<SakuraCard>`
 
 #### **PATCH** `/cards/{cardName}`
 
 *creates a Sakura Card object* 
 
-request body: `Partial<SakuraCard>`, required
+request body: `Partial<SakuraCard>`, required, _any property except cardName_
 ```
 {
-    "cardName": "Renamed Card"
+    "attribute": "Renamed attribute"
 }
 ```
 
-returns: `SakuraCard`
+returns: `Partial<SakuraCard> | string (unsuccessful)`
+
+unsuccessful response:
+```
+"You are not allowed to change the name of your Sakura Card."
+```
 
 #### **DELETE** `/cards/{cardName}`
 
@@ -116,7 +121,17 @@ returns: `SakuraCard`
 parameters: 
 cardName: `string`, required
 
-returns: `void`
+returns: `string`
+
+successful response:
+```
+"Sakura Card destroyed."
+```
+
+unsuccessful response:
+```
+"No Sakura Card to destroy."
+```
 
 ## Models
 
