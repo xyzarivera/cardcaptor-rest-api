@@ -33,7 +33,7 @@ class CardController extends BaseController {
   /**
    * HTTP GET request handler for getting all cards
    */
-   protected getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  protected getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const cards = await this.manager.getAllSakuraCards();
       if (!cards) {
@@ -89,7 +89,12 @@ class CardController extends BaseController {
       const cardDetails = req.body;
       const updatedSakuraCard = await this.manager.updateSakuraCard(cardName, cardDetails);
 
+      if (typeof updatedSakuraCard === "string") {
+        res.json(updatedSakuraCard);
+      }
+
       res.json(_.pick(updatedSakuraCard, ["cardName", "isMainCard", "attribute", "sign", "magicType"]));
+
     } catch (err) {
       next(err);
     }

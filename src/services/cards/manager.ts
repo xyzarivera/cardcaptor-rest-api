@@ -61,7 +61,10 @@ class CardManager implements IManager {
    * @param updates
    * @returns
    */
-  public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<SakuraCard> {
+  public async updateSakuraCard(cardName: string, updates: Partial<SakuraCard>): Promise<string | SakuraCard> {
+    if (updates.cardName) {
+      return "You are not allowed to change the name of your Sakura Card."
+    }
     const updateSakuraCard = await this.SakuraCardRepository.update({ cardName: this.sanitize(cardName) }, updates);
     // console.log("updateSakuraCard", updateSakuraCard);
     const updatedSakuraCard = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
