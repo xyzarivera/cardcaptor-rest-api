@@ -35,6 +35,8 @@ A REST API server capturing the magical cards used in the manga/anime series, Ca
 ## Setup
 
 ### Create a .env file
+
+create a `.env` file in the root of the project having these database information
 ```
 DB_NAME=db_name
 DB_USER=user
