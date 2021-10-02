@@ -96,9 +96,9 @@ request body: `Partial<SakuraCard>`, required
 
 returns: `SakuraCard`
 
-#### **GET** `/cards/{cardName}`
+#### **DELETE** `/cards/{cardName}`
 
-*returns a Sakura Card object* 
+*deletes a Sakura Card object* 
 
 parameters: 
 cardName: `string`, required
