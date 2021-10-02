@@ -8,8 +8,13 @@
 - [x] Seed data
 - [x] Finish Sakura Card enpoint
 - [x] API documentation and Slides
-- [ ] Figure out why `npm start` isnt working
-- [ ] How to deploy?
+- [ ] Learn how to deploy?
+    - [ ] Figure out why `npm start` isnt working
+- [ ] Seed rest of the Sakura Cards
+- [ ] Create simple frontend
+- [ ] Deploy both frontend and backend
+- [ ] Custom Card Creation
+    - [ ] Burn the bridge when we get there 😂
 
 
 
