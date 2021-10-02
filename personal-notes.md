@@ -3,8 +3,15 @@
 ## Things to do
 
 - [x] Set up TypeScript Express Server
-- [ ] Set up API functionalities
-- [ ] Set up ORM (typeORM) and connect database
+- [x] Set up API functionalities
+- [x] Set up ORM (typeORM) and connect database
+- [x] Seed data
+- [x] Finish Sakura Card enpoint
+- [x] API documentation and Slides
+- [ ] Figure out why `npm start` isnt working
+- [ ] How to deploy?
+
+
 
 ## How I Started my Project
 
