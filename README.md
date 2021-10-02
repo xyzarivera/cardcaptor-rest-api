@@ -32,6 +32,17 @@ A REST API server capturing the magical cards used in the manga/anime series, Ca
 - `typeorm-seeding` for data seeding 
 - Postgresql as database
 
+## Setup
+
+### Create a .env file
+```
+DB_NAME=db_name
+DB_USER=user
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_PORT=5432
+```
+
 ## 📖 API Documentation
 
 ### root
