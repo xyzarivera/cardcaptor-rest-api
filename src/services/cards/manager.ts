@@ -73,9 +73,12 @@ class CardManager implements IManager {
    * Delete SakuraCard
    *
    */
-  public async removeSakuraCard(cardName: string): Promise<DeleteResult | void> {
+  public async removeSakuraCard(cardName: string): Promise<DeleteResult | string> {
     const deleteData = await this.SakuraCardRepository.delete({ cardName: this.sanitize(cardName) });
-    return Promise.resolve();
+    if (deleteData.affected === 0) {
+      return "No Sakura Card to destroy."
+    }
+    return deleteData;
   }
 }
 

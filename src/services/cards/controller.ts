@@ -107,8 +107,12 @@ class CardController extends BaseController {
     const { cardName } = req.params;
 
     try {
-      await this.manager.removeSakuraCard(cardName);
-      res.status(200).end();
+      const deletedSakuraCard = await this.manager.removeSakuraCard(cardName);
+      if (typeof deletedSakuraCard === "string") {
+        res.json(deletedSakuraCard);
+      }
+        res.json("Sakura Card destroyed.");
+        res.status(200).end();
     } catch (err) {
       next(err);
     }
