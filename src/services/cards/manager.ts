@@ -25,7 +25,6 @@ class CardManager implements IManager {
    */
   public async getAllSakuraCards(): Promise<SakuraCard[]> {
     const SakuraCardsData = await this.SakuraCardRepository.query("SELECT * FROM sakura_cards");
-    console.log(SakuraCardsData);
     return SakuraCardsData;
   }
 
@@ -66,9 +65,7 @@ class CardManager implements IManager {
       return "You are not allowed to change the name of your Sakura Card."
     }
     const updateSakuraCard = await this.SakuraCardRepository.update({ cardName: this.sanitize(cardName) }, updates);
-    // console.log("updateSakuraCard", updateSakuraCard);
     const updatedSakuraCard = await this.SakuraCardRepository.findOne({ cardName: this.sanitize(cardName) });
-    // console.log("updatedSakuraCard", updatedSakuraCard);
     return updatedSakuraCard;
   }
 
