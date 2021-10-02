@@ -8,6 +8,8 @@
 - [x] Seed data
 - [x] Finish Sakura Card enpoint
 - [x] API documentation and Slides
+- [ ] Improve responses with proper HTTP status codes
+- [ ] use Swagger UI for better API documentation experience
 - [ ] Learn how to deploy?
     - [ ] Figure out why `npm start` isnt working
 - [ ] Seed rest of the Sakura Cards
